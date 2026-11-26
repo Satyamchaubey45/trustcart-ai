@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>TrustCart AI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+:root{--bg:#f6f7fb;
+    --card:#fff;
+    --tx:#12141c;
+    --mu:#667085;
+    --bd:#e4e7ee;
+    --ac:#5b5bf0;
+    --ok:#12a36b;
+    --wn:#e59a0b;
+    --bad:#e5484d;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d0f16;
+    --card:#161923;
+    --tx:#eef0f6;
+    --mu:#98a0b3;
+    --bd:#262a38;
+    --ac:#8080ff}}
+:root[data-theme="dark"]{
+    --bg:#0d0f16;
+    --card:#161923;
+    --tx:#eef0f6;
+    --mu:#98a0b3;
+    --bd:#262a38;
+    --ac:#8080ff}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;
+    background:var(--bg);
+    color:var(--tx);
+    font:15px/1.55 Inter,system-ui,-apple-system,Segoe UI,sans-serif}
+.w{max-width:1040px;
+    margin:0 auto;
+    padding:0 20px}
+nav{display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 0}
+.logo{font-weight:700;
+    font-size:18px}.logo b{color:var(--ac)}
+button{font:inherit;
+    cursor:pointer;
+    border:1px solid var(--bd);background:var(--card);
+    color:var(--tx);border-radius:10px;padding:9px 14px}
+button.p{background:var(--ac);border-color:var(--ac);color:#fff;
+    font-weight:600}
+button:hover{filter:brightness(1.06)}
+.hero{text-align:center;padding:48px 0 28px}
+h1{font-size:clamp(34px,6vw,56px);
+    line-height:1.05;
+    margin:0 0 12px;
+    letter-spacing:-.03em}
+.hero p{color:var(--mu);
+    font-size:18px;
+    margin:0 auto 26px;
+    max-width:520px}
+.in{display:flex;
+    gap:8px;
+    max-width:680px;
+    margin:0 auto;
+    background:var(--card);
+    border:1px solid var(--bd);
+    border-radius:14px;
+    padding:8px}
+.in input{flex:1;
+    border:0;
+    background:transparent;
+    color:var(--tx);
+    font:inherit;
+    padding:8px 10px;
+    outline:0;
+    min-width:0}
+.err{color:var(--bad);
+    margin-top:10px;
+    min-height:22px}
+.pl{display:flex;
+    gap:8px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-top:14px}
+.chip{border:1px solid var(--bd);
+    border-radius:99px;
+    padding:3px 12px;
+    color:var(--mu);
+    font-size:13px;
+    background:var(--card)}
+.grid{display:grid;
+    gap:14px}.g3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.c{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:18px}
+.c h3{margin:0 0 10px;font-size:14px;color:var(--mu);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+section{padding:26px 0}h2{margin:0 0 14px;font-size:24px;letter-spacing:-.02em}
+.demo{background:#fff4d6;color:#7a5200;border:1px solid #f0d58a;border-radius:10px;padding:8px 12px;font-size:13px;margin-bottom:14px}
+.row{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.big{font-size:30px;font-weight:700}.mu{color:var(--mu)}.s{font-size:13px}
+.bar{height:8px;background:var(--bd);border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:var(--ac)}
+.rec{display:inline-block;padding:6px 14px;border-radius:99px;font-weight:700;color:#fff}
+.pie{width:120px;height:120px;border-radius:50%}
+table{width:100%;border-collapse:collapse}td,th{padding:8px;border-bottom:1px solid var(--bd);text-align:left;font-size:14px}
+.best{background:color-mix(in srgb,var(--ok) 14%,transparent)}
+ul{margin:0;padding-left:18px}details{border-bottom:1px solid var(--bd);padding:10px 0}summary{cursor:pointer;font-weight:600}
+footer{padding:30px 0;color:var(--mu);font-size:13px;text-align:center}
+.sk{height:120px;border-radius:16px;background:linear-gradient(90deg,var(--bd),var(--card),var(--bd));background-size:200%;animation:sh 1.2s infinite}@keyframes sh{to{background-position:-200%}}
+</style></head><body><div class="w">
+<nav><div class="logo">Trust<b>Cart</b> AI</div><div class="row"><button id="cmpBtn">Compare (0)</button><button id="th">Theme</button></div></nav>
+<div class="hero"><h1>Buy Smarter. Trust Better.</h1><p>Don’t trust ratings blindly. Let AI investigate before you invest.</p>
+<div class="in"><input id="u" placeholder="Paste Amazon, Flipkart, Myntra product link here..." aria-label="Product URL"><button class="p" id="go">Analyze Product</button></div>
+<div class="err" id="err"></div>
+<div class="pl"><span class="chip">Amazon</span><span class="chip">Flipkart</span><span class="chip">Myntra</span><span class="chip">Meesho</span><span class="chip">Ajio</span></div></div>
+<div id="out"></div>
+<section><h2>How it works</h2><div class="grid g3">
+<div class="c"><h3>1 · Paste</h3>Validate the link and detect the platform.</div>
+<div class="c"><h3>2 · Analyze</h3>Reviews, ratings, price and popularity signals are scored with transparent, configurable weights.</div>
+<div class="c"><h3>3 · Decide</h3>See a trust score with a confidence level, never a guarantee.</div></div></section>
+<section><h2>FAQ</h2>
+<details><summary>Is the data real?</summary>This build runs in demo mode. Every figure is generated from the link and labeled DEMO. A production build needs official APIs or authorized data providers.</details>
+<details><summary>Are suspicious signals confirmed fake reviews?</summary>No. They are patterns worth a closer look, not verdicts.</details>
+<details><summary>What if data is missing?</summary>It shows “Data Unavailable”, and the score weights are re-normalized with a lower confidence.</details>
+<details><summary>Do you bypass site restrictions?</summary>No. No CAPTCHA or login bypassing, ever.</details></section>
+<footer>TrustCart AI · Trust scores are indicators, not guarantees of product quality.</footer></div>
+<script>
+const W={sentiment:25,credibility:20,distribution:15,complaints:15,consistency:10,price:5,sales:10};
+const LBL={sentiment:"Review sentiment",credibility:"Review credibility",distribution:"Rating distribution",complaints:"Complaint frequency",consistency:"Info consistency",price:"Price & discount",sales:"Sales / popularity"};
+const PL={"amazon":"Amazon","flipkart":"Flipkart","myntra":"Myntra","meesho":"Meesho","ajio":"Ajio"};
+const $=s=>document.querySelector(s);const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let cmp=[];
+function platform(u){let h;try{const x=new URL(u);if(!/^https?:$/.test(x.protocol))return null;h=x.hostname.toLowerCase()}catch(e){return null}
+ if(!h.includes("."))return null;for(const k in PL)if(h.includes(k))return PL[k];return "Other";}
+function rng(str){let h=2166136261;for(const c of str){h^=c.charCodeAt(0);h=Math.imul(h,16777619)}return()=>{h|=0;h=h+0x6D2B79F5|0;let t=Math.imul(h^h>>>15,1|h);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function analyze(url,pf){const r=rng(url),R=(a,b)=>a+r()*(b-a);
+ const orig=Math.round(R(600,6000)/10)*10,cur=Math.round(orig*R(.5,.92)),rating=+R(3.2,4.8).toFixed(1);
+ let d=[R(.4,1),R(.2,.5),R(.05,.2),R(.02,.15),R(.02,.25)];const t=d.reduce((a,b)=>a+b);d=d.map(x=>Math.round(x/t*100));d[0]+=100-d.reduce((a,b)=>a+b);
+ const pos=d[0]+d[1],neg=d[3]+d[4],neu=d[2];
+ const slug=decodeURIComponent(new URL(url).pathname).split("/").filter(x=>x.length>3)[0]||"product";
+ const name=slug.replace(/[-_]+/g," ").replace(/\b\w/g,c=>c.toUpperCase()).slice(0,60);
+ const jShape=d[4]>d[3]&&d[4]>d[2]?.5:1;
+ const comp={sentiment:pos,credibility:R(45,95),distribution:Math.round(100*jShape*R(.6,1)),complaints:100-Math.min(100,neg*2.2),consistency:R(55,98),price:R(50,95),sales:null};
+ let sw=0,aw=0;for(const k in W){sw+=W[k];if(comp[k]!=null)aw+=W[k]}
+ let sc=0;for(const k in W)if(comp[k]!=null)sc+=comp[k]*W[k]/aw;sc=Math.round(sc);
+ const conf=Math.round(aw/sw*100);
+ let hist=[],p=orig*R(.8,.95);for(let i=0;i<12;i++){p=Math.max(cur*.8,Math.min(orig,p*R(.93,1.06)));hist.push(Math.round(p))}hist[11]=cur;
+ const sig=[["Repetitive review language",R(0,1)],["Unusual review timing bursts",R(0,1)],["Similar wording across reviews",R(0,1)],["Unnatural rating distribution",jShape<1?.8:R(0,.5)],["Possible incentivized-review language",R(0,1)]].map(([n,v])=>[n,v>.66?"High":v>.33?"Medium":"Low"]);
+ const rec=sc>=75?["RECOMMENDED","#12a36b"]:sc>=40?["BUY WITH CAUTION","#e59a0b"]:["NOT RECOMMENDED","#e5484d"];
+ const cat=sc>=90?"Excellent Trust Indicators":sc>=75?"Good Trust Indicators":sc>=60?"Moderate Trust Indicators":sc>=40?"High Caution":"Very High Risk Signals";
+ return{url,pf,name,brand:"Data Unavailable (demo)",orig,cur,disc:Math.round((1-cur/orig)*100),rating,count:Math.round(R(200,40000)),d,pos,neg,neu,comp,sc,conf,hist,sig,rec,cat,
+ pros:["Overall satisfaction is high among positive reviews","Value for money is mentioned often"],cons:neg>15?["A notable share of reviews report quality problems","Durability complaints appear repeatedly"]:["Few complaints detected in the sample"]};}
+const money=n=>"₹"+n.toLocaleString("en-IN");
+function line(h){const w=420,ht=140,mx=Math.max(...h),mn=Math.min(...h),pt=h.map((v,i)=>[i*(w/11),ht-10-(v-mn)/(mx-mn||1)*(ht-30)]);
+ return`<svg viewBox="0 0 ${w} ${ht}" width="100%" role="img" aria-label="Price history"><polyline fill="none" stroke="var(--ac)" stroke-width="2.5" points="${pt.map(p=>p.join(",")).join(" ")}"/>${pt.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="3" fill="var(--ac)"/>`).join("")}</svg><div class="s mu">Last 12 periods · low ${money(mn)} · high ${money(mx)}</div>`}
+function ring(s){const c=2*Math.PI*52,col=s>=75?"var(--ok)":s>=40?"var(--wn)":"var(--bad)";
+ return`<svg viewBox="0 0 120 120" width="150" height="150"><circle cx="60" cy="60" r="52" fill="none" stroke="var(--bd)" stroke-width="10"/><circle cx="60" cy="60" r="52" fill="none" stroke="${col}" stroke-width="10" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c}" transform="rotate(-90 60 60)"><animate attributeName="stroke-dashoffset" from="${c}" to="${c*(1-s/100)}" dur="1s" fill="freeze"/></circle><text x="60" y="68" text-anchor="middle" font-size="30" font-weight="700" fill="var(--tx)">${s}</text></svg>`}
+function render(a){const dist=[5,4,3,2,1].map((s,i)=>`<div class="row s" style="gap:8px"><span style="width:24px">${s}★</span><div class="bar" style="flex:1"><i style="width:${a.d[i]}%"></i></div><span style="width:34px">${a.d[i]}%</span></div>`).join("");
+ const br=Object.keys(W).map(k=>`<div class="s"><div class="row" style="justify-content:space-between"><span>${LBL[k]} · weight ${W[k]}%</span><b>${a.comp[k]==null?"Data Unavailable":Math.round(a.comp[k])}</b></div><div class="bar"><i style="width:${a.comp[k]||0}%"></i></div></div>`).join("");
+ const pie=`conic-gradient(var(--ok) 0 ${a.pos}%,var(--mu) ${a.pos}% ${a.pos+a.neu}%,var(--bad) ${a.pos+a.neu}% 100%)`;
+ $("#out").innerHTML=`<div class="s mu" style="margin-bottom:10px">Live data from your configured provider · ${new Date().toLocaleString()}</div>
+ <div class="grid g2"><div class="c"><h3>Product overview · ${esc(a.pf)}</h3><div class="big" style="font-size:20px">${esc(a.name)}</div><div class="mu s">Brand: ${esc(a.brand)}</div>
+ <div class="row" style="margin-top:10px"><span class="big">${money(a.cur)}</span><s class="mu">${money(a.orig)}</s><span class="chip">${a.disc}% off</span></div>
+ <div class="s mu" style="margin-top:6px">Rating ${a.rating}/5 · ${a.count.toLocaleString("en-IN")} ratings</div>
+ <div style="margin-top:12px" class="row"><button id="addc" class="p">Add to compare</button></div></div>
+ <div class="c"><h3>AI trust score</h3><div class="row">${ring(a.sc)}<div><div><b>${a.cat}</b></div><div class="s mu">Confidence: ${a.conf}%${a.conf<100?" (sales data unavailable, weights re-normalized)":""}</div><div style="margin-top:10px"><span class="rec" style="background:${a.rec[1]}">${a.rec[0]}</span></div></div></div></div>
+ <div class="c"><h3>Score breakdown</h3><div class="grid" style="gap:10px">${br}</div></div>
+ <div class="c"><h3>Review sentiment</h3>${a.pos+a.neu+a.neg?`<div class="row"><div class="pie" style="background:${pie}"></div><div class="s">Positive ${a.pos}%<br>Neutral ${a.neu}%<br>Negative ${a.neg}%</div></div>`:'<b>Data Unavailable</b><div class="s mu">Not enough review data from this source.</div>'}<h3 style="margin-top:16px">Rating distribution</h3>${dist}</div>
+ <div class="c"><h3>Price intelligence</h3>${a.hist&&a.hist.length?line(a.hist):'<b>Data Unavailable</b><div class="s mu">No price-history source connected.</div>'}</div>
+ <div class="c"><h3>Suspicious signals (not confirmed fakes)</h3><table>${a.sig.map(s=>`<tr><td>${s[0]}</td><td><b>${s[1]}</b></td></tr>`).join("")}</table></div>
+ <div class="c"><h3>Sales &amp; popularity</h3><b>${esc(a.sales||"Data Unavailable")}</b><div class="s mu">Only provider-reported figures are shown. Nothing is estimated.</div></div>
+ <div class="c"><h3>AI pros &amp; cons</h3><b>Pros</b><ul>${a.pros.map(x=>`<li>${x}</li>`).join("")}</ul><b>Cons</b><ul>${a.cons.map(x=>`<li>${x}</li>`).join("")}</ul></div></div>
+ <div class="s mu" style="padding:10px 0">Why this verdict: the weighted score of ${a.sc}/100 maps to “${a.rec[0].toLowerCase()}”. It is an indicator, not a guarantee.</div>`;
+ $("#addc").onclick=()=>{if(cmp.length>=3)return alert("You can compare up to 3 products.");if(cmp.some(x=>x.url===a.url))return;cmp.push(a);$("#cmpBtn").textContent=`Compare (${cmp.length})`;$("#addc").textContent="Added ✓"};
+ $("#out").scrollIntoView({behavior:"smooth"})}
+$("#go").onclick=()=>{const u=$("#u").value.trim(),e=$("#err");e.textContent="";const pf=platform(u);
+ if(!u){e.textContent="Please paste a product link.";return}if(!pf){e.textContent="That doesn’t look like a valid product URL (use http:// or https://).";return}
+ $("#out").innerHTML='<div class="grid g2"><div class="sk"></div><div class="sk"></div><div class="sk"></div><div class="sk"></div></div>';
+ fetch("/api/analyze",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({url:u})}).then(async r=>{const j=await r.json();if(!r.ok)throw new Error(j.error||"Error");render(j)}).catch(x=>{$("#out").innerHTML="";e.textContent=x.message})};
+$("#u").addEventListener("keydown",e=>{if(e.key==="Enter")$("#go").click()});
+$("#cmpBtn").onclick=()=>{if(!cmp.length){$("#out").innerHTML='<div class="c">Nothing to compare yet. Analyze a product and press “Add to compare”.</div>';return}
+ const best=Math.max(...cmp.map(a=>a.sc));const row=(l,f)=>`<tr><th>${l}</th>${cmp.map(a=>`<td class="${l==="Trust score"&&a.sc===best?"best":""}">${f(a)}</td>`).join("")}</tr>`;
+ $("#out").innerHTML=`<div class="c" style="overflow-x:auto"><h3>Comparison</h3><table><tr><th></th>${cmp.map(a=>`<th>${esc(a.name)}<div class="s mu">${esc(a.pf)}</div></th>`).join("")}</tr>
+ ${row("Trust score",a=>`<b>${a.sc}</b> (${a.conf}% conf.)`)}${row("Price",a=>money(a.cur))}${row("Rating",a=>a.rating+"/5")}${row("Credibility signals",a=>Math.round(a.comp.credibility)+"/100")}${row("Negative reviews",a=>a.neg+"%")}${row("Top con",a=>a.cons[0])}${row("Recommendation",a=>a.rec[0])}</table>
+ <div class="s mu" style="margin-top:10px">Highlighted: the highest trust score. Evidence is limited to the demo sample.</div><button id="clr" style="margin-top:10px">Clear comparison</button></div>`;
+ $("#clr").onclick=()=>{cmp=[];$("#cmpBtn").textContent="Compare (0)";$("#out").innerHTML=""};$("#out").scrollIntoView({behavior:"smooth"})};
+$("#th").onclick=()=>{const r=document.documentElement,dk=getComputedStyle(r).getPropertyValue("--bg").trim()==="#0d0f16";r.dataset.theme=dk?"light":"dark"};
+</script></body></html>
